@@ -49,6 +49,9 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.android.volley:volley:1.2.1")
     implementation ("com.squareup.picasso:picasso:2.8")
+<<<<<<< HEAD
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+=======
+>>>>>>> 657bbd5ae95a4b5bc2c4417bcee0b907eb648e7e
 }
