@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -20,7 +21,11 @@ import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import android.content.Intent
 
 class SelectedLocationWeather : AppCompatActivity() {
 
@@ -34,8 +39,8 @@ class SelectedLocationWeather : AppCompatActivity(), AdapterView.OnItemSelectedL
     private lateinit var lblTemperature: TextView
     private lateinit var lblWindSpeed: TextView
     private lateinit var imgWeather: ImageView
-    private val city =
-        arrayOf("Colombo", "London", "Tokyo", "Hong Kong", "Manila", "Seoul", "Munich", "Paris")
+
+    private lateinit var btnAddCity : Button
 
     //RecyclerView for day forecast
     private lateinit var forecastRecycles: RecyclerView
@@ -55,11 +60,7 @@ class SelectedLocationWeather : AppCompatActivity(), AdapterView.OnItemSelectedL
         lblWindSpeed = findViewById(R.id.lbl_windSpeed)
         imgWeather = findViewById(R.id.imageView)
 
-        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, city)
-        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        spnCity.adapter = cityAdapter
-        spnCity.onItemSelectedListener = this
+        btnAddCity = findViewById(R.id.btn_add)
 
         //Forecast
         forecastRecycles = findViewById(R.id.forecastRecycle)
@@ -69,17 +70,65 @@ class SelectedLocationWeather : AppCompatActivity(), AdapterView.OnItemSelectedL
             false
         )
 
+        setCitySpinner()
+
+        //Button Click Listener
+        btnAddCity.setOnClickListener{
+            openAddNewLocation()
+        }
+
     }
+
+    //SelectCity Spinner
+    private fun setCitySpinner() {
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ArrayList())
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spnCity.adapter = adapter
+        spnCity.onItemSelectedListener = this
+        loadSpinnerData()
+    }
+    private fun loadSpinnerData() {
+        val citiesList = ArrayList<String>()
+        val database = FirebaseDatabase.getInstance()
+        val citiesRef = database.getReference("cities")
+
+
+        citiesRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+
+                for (citySnapshot in dataSnapshot.children) {
+                    val cityName = citySnapshot.getValue(City::class.java)
+                    if (cityName != null) {
+                        cityName.name?.let { citiesList.add(it) }
+                    }
+                }
+                val adapter = spnCity.adapter as ArrayAdapter<String>
+                adapter.clear()
+                adapter.addAll(citiesList)
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.e("Database", "Error from database")
+            }
+        })
+    }
+
 
     //Spn city listener
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        getCityWeatherInfo(city[position])
-        fetchForecastData(city[position])
+        val selectedCity = parent?.getItemAtPosition(position) as? String
+        selectedCity?.let { getCityWeatherInfo(it) }
+        selectedCity?.let { fetchForecastData(it) }
+    }
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    //Open Add New Location pg onClick (Intent)
+    private fun openAddNewLocation() {
+        val intent = Intent(this, AddNewLocation::class.java)
+        startActivity(intent)
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
 
     //Get Weather information about selected city from API
     @SuppressLint("SetTextI18n")
@@ -114,6 +163,13 @@ class SelectedLocationWeather : AppCompatActivity(), AdapterView.OnItemSelectedL
 
         Volley.newRequestQueue(this).add(request)
     }
+
+
+
+
+
+
+
 
 
     //Fetching forecast data from API

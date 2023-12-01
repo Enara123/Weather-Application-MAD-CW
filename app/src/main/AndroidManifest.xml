@@ -19,10 +19,21 @@
 
         <activity
             android:name=".AddNewLocation"
-            android:exported="false"/>
+            android:exported="false">
+        </activity>
 
         <activity
             android:name=".SelectedLocationWeather$SelectedLocationWeather"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".CurrentLocationWeather"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,15 +42,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".CurrentLocationWeather"
-            android:exported="false">
-
-        </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
     </application>
 
 </manifest>
