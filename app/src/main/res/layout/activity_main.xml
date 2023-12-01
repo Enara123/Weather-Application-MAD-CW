@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#caf0f8"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -12,17 +13,28 @@
         android:layout_height="wrap_content"
         android:text="Weather App"
         android:textStyle="bold"
-        android:textSize="28sp"
+        android:textColor="#03045e"
+        android:textSize="32sp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:elevation="20dp"
+        android:src="@drawable/img"/>
 
     <Button
         android:id="@+id/btn_currentWeather"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:backgroundTint="#ffb703"
         android:text="View Current Weather"/>
 
     <Button
@@ -31,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="#ffb703"
         android:text="Select City"/>
 
 </LinearLayout>

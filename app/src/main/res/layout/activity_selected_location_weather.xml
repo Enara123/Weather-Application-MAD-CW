@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CurrentLocationWeather"
+    android:background="#caf0f8"
     android:id="@+id/layoutWeather">
 
     <LinearLayout
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="#03045e"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +46,8 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:backgroundTint="#ffb703"
                 android:text="Add City" />
 
         </LinearLayout>

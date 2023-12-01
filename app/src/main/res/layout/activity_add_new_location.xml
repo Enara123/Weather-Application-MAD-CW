@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddNewLocation"
+    android:background="#caf0f8"
     android:orientation="vertical">
 
     <TextView
@@ -20,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="#03045e"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +42,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
+            android:textStyle="bold"
+            android:backgroundTint="#ffb703"
             android:text="@string/add"
             />
 
@@ -50,6 +53,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         tools:listitem="@layout/item_city" />
 
@@ -59,6 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:textStyle="bold"
+        android:backgroundTint="#ffb703"
         android:text="@string/back"
         />
 

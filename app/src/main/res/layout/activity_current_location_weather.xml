@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#caf0f8"
     tools:context=".CurrentLocationWeather"
     android:id="@+id/layoutWeather">
 
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="#03045e"/>
 
         <TextView
             android:id="@+id/lbl_latlon"
